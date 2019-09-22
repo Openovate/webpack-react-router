@@ -1,5 +1,6 @@
 const path = require('path');
 const ReactRouterPlugin = require('../src');
+const VirtualFoldersPlugin = require('@openovate/webpack-virtual-folders');
 
 module.exports = {
   mode: 'development',
@@ -34,11 +35,16 @@ module.exports = {
     extensions: ['*', '.js', '.jsx']
   },
   plugins: [
-    ReactRouterPlugin
-      .load('test/env/client')
-      .link('screens/sample', path.resolve(__dirname, 'env/module/sample'))
-      .route('/', './screens/Hello.jsx')
-      .route('/about', './screens/About.jsx')
-      .route('/more', './screens/sample/More.jsx')
+    new VirtualFoldersPlugin({
+      'test/env/client/screens/sample': path.resolve(__dirname, 'env/module/sample')
+    }),
+    new ReactRouterPlugin({
+      router: 'test/env/client/router.js',
+      routes: {
+        '/': './screens/Hello.jsx',
+        '/about': './screens/About.jsx',
+        '/more': './screens/sample/More.jsx'
+      }
+    })
   ]
 };

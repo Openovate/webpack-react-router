@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "path-to-regexp": "^3.1.0",
-    "webpack-virtual-directories": "0.0.3",
     "webpack-virtual-modules": "^0.1.11"
   }
 }

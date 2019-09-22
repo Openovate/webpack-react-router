@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 
 const VirtualModulesPlugin = require('webpack-virtual-modules');
-const VirtualFoldersPlugin = require('@openovate/webpack-virtual-folders');
 
 const clause = fs
   .readFileSync(path.resolve(__dirname, 'clause.js'))
@@ -21,8 +20,8 @@ class ReactRouterPlugin {
    *
    * @return {ReactRouterPlugin}
    */
-  static load(context = '', routes = {}, links = {}) {
-    return new ReactRouterPlugin(context, routes = {}, links = {});
+  static load(options) {
+    return new ReactRouterPlugin(options);
   }
 
   /**
@@ -31,23 +30,11 @@ class ReactRouterPlugin {
    * @param {Object} routes
    * @param {Object} links
    */
-  constructor(context = '', routes = {}, links = {}) {
-    //context is like the root working path
-    this.context = context;
-    // request path -> screen path
-    this.routes = {};
-    // target -> source
-    this.links = {};
+  constructor(options) {
     //this is the router path
-    this.router = path.join(this.context, 'router.js');
-
-    Object.keys(routes).forEach(path => {
-      this.route(path, routes[path]);
-    });
-
-    Object.keys(links).forEach(target => {
-      this.route(target, links[target]);
-    });
+    this.router = options.router || './router.js';
+    // request path -> screen path
+    this.routes = options.routes || {};
   }
 
   /**
@@ -60,24 +47,7 @@ class ReactRouterPlugin {
     router[this.router] = this.generate();
 
     const modules = new VirtualModulesPlugin(router);
-    const folders = new VirtualFoldersPlugin(this.links);
-
     modules.apply(compiler);
-    folders.apply(compiler);
-  }
-
-  /**
-   * Manually link a folder to the build
-   *
-   * @param {String} target
-   * @param {String} source
-   *
-   * @return {ReactRouterPlugin}
-   */
-  link(target, source) {
-    target = path.join(this.context, target);
-    this.links[target] = source;
-    return this;
   }
 
   /**
