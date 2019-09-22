@@ -8,6 +8,7 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
+    publicPath: '/',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
@@ -40,5 +41,6 @@ module.exports = {
       .route('/', './screens/Hello.jsx')
       .route('/about', './screens/About.jsx')
       .route('/more', './screens/sample/More.jsx')
+      .route('/more/:id/(.+)', './screens/sample/More.jsx')
   ]
 };

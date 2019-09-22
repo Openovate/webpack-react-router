@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+
+const pathToRegexp = require('path-to-regexp');
 
 class Router extends React.Component {
   constructor(props) {
@@ -16,13 +18,11 @@ class Router extends React.Component {
   }
 
   handle(location, action) {
-    //if no pathname or no route found
+    //if no pathname
     if (!location.pathname) {
       //nothing we can do...
       return;
     }
-
-    //TODO: Add Path to Regexp
 
     {CLAUSES}
   }

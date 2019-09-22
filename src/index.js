@@ -105,8 +105,9 @@ class ReactRouterPlugin {
     for(const route in this.routes) {
       clauses.push(
         clause
-          .replace('{PATH}', route)
-          .replace('{PATH}', this.routes[route])
+          .replace('{ROUTE}', route)
+          .replace('{COMPONENT}', this.routes[route])
+          .replace('{COMPONENT}', this.routes[route])
       );
     }
 
