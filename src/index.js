@@ -3,6 +3,10 @@ const path = require('path');
 
 const VirtualModulesPlugin = require('webpack-virtual-modules');
 
+const link = fs
+  .readFileSync(path.resolve(__dirname, 'Link.jsx'))
+  .toString('utf8');
+
 const clause = fs
   .readFileSync(path.resolve(__dirname, 'clause.js'))
   .toString('utf8');
@@ -31,6 +35,8 @@ class ReactRouterPlugin {
    * @param {Object} links
    */
   constructor(options) {
+    //this is the link component helper
+    this.link = options.link || './Link.jsx';
     //this is the router path
     this.router = options.router || './router.js';
     // request path -> screen path
@@ -44,6 +50,7 @@ class ReactRouterPlugin {
    */
   apply(compiler) {
     const router = {};
+    router[this.link] = link;
     router[this.router] = this.generate();
 
     const modules = new VirtualModulesPlugin(router);

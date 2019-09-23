@@ -9,7 +9,7 @@ export default class Link extends React.Component {
 
   handle(event) {
     const { to, history } = this.props
-    const props = this.props.props || {}
+    const props = this.props.props || {};
 
     event.preventDefault();
 

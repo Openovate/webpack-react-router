@@ -39,6 +39,7 @@ module.exports = {
       'test/env/client/screens/sample': path.resolve(__dirname, 'env/module/sample')
     }),
     new ReactRouterPlugin({
+      link: 'test/env/client/components/Link.jsx',
       router: 'test/env/client/router.js',
       routes: {
         '/': './screens/Hello.jsx',

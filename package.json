@@ -1,16 +1,27 @@
 {
   "name": "@openovate/webpack-react-router",
-  "version": "0.0.2",
-  "description": "",
+  "version": "0.0.3",
+  "description": "Webpack powered React router that supports virtual modules, virtual folders, and code splitting.",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --mode development --no-inline",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "webpack plugin",
+    "react router"
+  ],
+  "author": "Christian Blanquera <cblanquera@openovate.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Openovate/webpack-react-router.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Openovate/webpack-react-router/issues"
+  },
+  "homepage": "https://github.com/Openovate/webpack-react-router#readme",
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
