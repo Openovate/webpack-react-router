@@ -233,3 +233,39 @@ Needed a react router that considered the following.
  - [Virtual Modules](https://www.npmjs.com/package/webpack-virtual-modules)
  - [Virtual Folders](https://www.npmjs.com/package/@openovate/webpack-virtual-folders)
  - [Code Splitting](https://webpack.js.org/guides/code-splitting/)
+
+### Dynamic Imports with Dynamic Pathing
+
+The following example underlies this topic.
+
+```js
+const routes = {
+  '/': './screens/Hello.jsx',
+  '/about': './screens/About.jsx'
+}
+
+import(routes['/']).then(component => {
+  console.log(component.default)
+})
+```
+
+Using dynamic `import()` in webpack 4 enables code splitting. When using dynamic
+pathing like the above, `import(routes['/'])` simply won't work because webpack
+could not predetermine the actual value when compiling.
+
+For some reason, wrapping a JS template seems to work like the following.
+
+```js
+import(`${routes['/']}`).then(component => {
+  console.log(component.default)
+})
+```
+
+But for [Virtually Defined Modules](https://www.npmjs.com/package/webpack-virtual-modules),
+this does not. Virtual Modules powers [Virtual Folders](https://www.npmjs.com/package/@openovate/webpack-virtual-folders). Virtual Folders allows folder resolution where webpack cannot find
+files at their specified location. With Virtual Folders, we could simply tell
+Webpack other places where it could be. This is ideal in the case where you may
+want to modularize your project using a particular file structure in an
+unopinionated way.
+
+For the reasons above, a plugin that generates a virtual router was decided.
